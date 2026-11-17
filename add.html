@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f4f6fa;
+            --surface: #ffffff;
+            --text: #1b2437;
+            --muted: #667085;
+            --border: #e4e8f0;
+            --field-border: #cfd6e4;
+            --primary: #2f4bd8;
+            --primary-dark: #2339b0;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Inter", "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ---------- Header ---------- */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .topbar p {
+            margin: 2px 0 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        /* ---------- Buttons ---------- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.15s;
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid rgba(47, 75, 216, 0.35);
+            outline-offset: 2px;
+        }
+
+        .back {
+            background: var(--surface);
+            color: var(--text);
+            border-color: var(--border);
+        }
+        .back:hover { background: #eef1f7; }
+
+        .submit {
+            background: var(--primary);
+            color: #fff;
+            flex: 1;
+        }
+        .submit:hover { background: var(--primary-dark); }
+
+        /* ---------- Layout ---------- */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px 48px;
+        }
+
+        .form-container {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 28px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
+        }
+
+        /* ---------- Form ---------- */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 16px;
+        }
+
+        .field { display: flex; flex-direction: column; gap: 6px; }
+        .field.full { grid-column: 1 / -1; }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            font: inherit;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: #fff;
+            border: 1px solid var(--field-border);
+            border-radius: 8px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        input::placeholder { color: #98a2b3; }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(47, 75, 216, 0.18);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 520px) {
+            .topbar-inner { padding: 16px; }
+            main { padding: 24px 16px 40px; }
+            .form-container { padding: 20px; }
+            .grid { grid-template-columns: 1fr; }
+            .actions { flex-direction: column-reverse; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div>
+                <h1>Add Student</h1>
+                <p>Enter the details for the new student</p>
+            </div>
+            <a href="/" class="btn back">&larr; Back to Home</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+
+            <form action="/students/add" method="post">
+
+                <div class="grid">
+
+                    <div class="field full">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name"
+                               placeholder="e.g. Priya Sharma" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age"
+                               min="18" max="30" placeholder="18 to 30" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="marks">Marks</label>
+                        <input type="number" id="marks" name="marks"
+                               min="0" max="100" placeholder="0 to 100" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" required>
+                            <option value="1">Present</option>
+                            <option value="0">Absent</option>
+                        </select>
+                    </div>
+
+                    <div class="field full">
+                        <label for="course">Course</label>
+                        <input type="text" id="course" name="course"
+                               placeholder="e.g. Computer Science" required>
+                    </div>
+
+                    <div class="field full">
+                        <label for="image">Image URL</label>
+                        <input type="text" id="image" name="image"
+                               placeholder="https://example.com/photo.jpg" required>
+                    </div>
+
+                </div>
+
+                <div class="actions">
+                    <a href="/" class="btn back">Cancel</a>
+                    <button type="submit" class="btn submit">Add Student</button>
+                </div>
+
+            </form>
+
+        </div>
+    </main>
+
+</body>
+</html>
